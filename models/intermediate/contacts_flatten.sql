@@ -4,7 +4,7 @@ select
     is_deleted,
     urn,
     JSON_EXTRACT_SCALAR(details, '$.name') AS full_name,
-    JSON_EXTRACT_SCALAR(details, '$.language_select') AS full_name,
+    JSON_EXTRACT_SCALAR(details, '$.language_select') AS language_select,
     JSON_EXTRACT_SCALAR(details, '$.designation') AS designation,
     JSON_EXTRACT_SCALAR(details, '$.state') AS state,
     JSON_EXTRACT_SCALAR(details, '$.grade') AS grade,
