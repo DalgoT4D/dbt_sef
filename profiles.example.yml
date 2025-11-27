@@ -1,0 +1,12 @@
+sef_transform:
+  outputs:
+    prod:
+      keyfile_json:
+      schema: intermediate
+      location: US
+      method: service-account-json
+      priority: interactive
+      project: 
+      threads: 4
+      type: bigquery
+  target: prod

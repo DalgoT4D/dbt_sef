@@ -1,0 +1,11 @@
+sources:
+  - name: sef_whatsapp_bot
+    description: Source data from SEF WhatsApp Bot
+    schema: "919911168311"
+    tables:
+      - name: messages
+        description: This table contains raw messages from SEF WhatsApp Bot
+      - name: contacts
+        description: This table contains contact information of users on SEF WhatsApp Bot
+      - name: cards
+        description: This table contains card information of configured journeys on SEF WhatsApp Bot
