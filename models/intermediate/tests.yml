@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: contacts_flatten
+    description: This model pulls the data of contacts from the WhatsApp bot source table and flattens the JSON details into individual columns. It also filters out deleted contacts and retains only the latest record for each unique contact based on the updated_at timestamp.
+    columns:
+      - name: urn
+        description: Unique identifier for the contact
+        data_tests:
+          - not_null
+          - unique
