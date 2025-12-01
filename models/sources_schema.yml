@@ -9,3 +9,5 @@ sources:
         description: This table contains contact information of users on SEF WhatsApp Bot
       - name: cards
         description: This table contains card information of configured journeys on SEF WhatsApp Bot
+      - name: chats
+        description: This table contains chat info. Each chat record tracks the status, assignment, and metadata of a conversation thread
