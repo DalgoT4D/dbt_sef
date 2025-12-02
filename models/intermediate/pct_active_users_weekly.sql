@@ -25,7 +25,7 @@ per_contact_week as(
     group by contact_id, week_start
 ),
 
--- numerator: distinct contacts in the week with >= 3 journey starts
+-- numerator 1: distinct contacts in the week with >= 3 journey starts
 weekly_active AS (
   SELECT
     week_start,
@@ -79,9 +79,9 @@ select
 
 
 
-from weekly_active w
-cross join total_opted_in_global t
-cross join total_all_global a
-left join opted_in_active_weekly o using(week_start)
+FROM weekly_active w
+CROSS JOIN total_opted_in_global t
+CROSS JOIN total_all_global a
+LEFT JOIN opted_in_active_weekly o USING (week_start)
 
-order by week_start desc
+order by week_start desc  

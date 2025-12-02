@@ -11,6 +11,16 @@ WITH base AS (
     JSON_EXTRACT_SCALAR(author, '$.name')           AS author_name_stack,
     JSON_EXTRACT_SCALAR(author, '$.type')           AS author_type,
     JSON_EXTRACT_SCALAR(interactive, '$.body.text') AS interactive_body_text,
+    JSON_EXTRACT_SCALAR(interactive, '$.type') AS interaction_type,
+    CASE
+      WHEN JSON_EXTRACT_SCALAR(interactive, '$.type') = 'button_reply' THEN
+        JSON_EXTRACT_SCALAR(interactive, '$.button_reply.title')
+
+      WHEN JSON_EXTRACT_SCALAR(interactive, '$.type') = 'list_reply' THEN
+        JSON_EXTRACT_SCALAR(interactive, '$.list_reply.title')
+
+      ELSE NULL
+    END AS interaction_inbound_reply,
     inserted_at
   FROM {{ source('sef_whatsapp_bot', 'messages') }}
 )
@@ -26,6 +36,8 @@ SELECT
   author_id,
   author_type,
   interactive_body_text,
+  interaction_type,
+  interaction_inbound_reply,
   inserted_at,
 
   -- unified author name (choose stack.name or owner.journey_name)
