@@ -19,6 +19,8 @@ select
     messages.direction,
     messages.journey_name,
     messages.author_type,
+    messages.interaction_type,
+    messages.interaction_inbound_reply,
     messages.journey_start_flag,
     messages.id as message_id,
     messages.inserted_at as message_inserted_at,
