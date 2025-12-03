@@ -28,16 +28,16 @@ WITH base AS (
 SELECT
   id,
   message_type,
-  content,
+  COALESCE(content, interactive_body_text, interaction_inbound_reply) as content_coalesced,
+  interaction_type,
   direction,
   chat_id,
   author_journey_uuid,
   author_journey_name,
   author_id,
   author_type,
-  interactive_body_text,
-  interaction_type,
-  interaction_inbound_reply,
+  -- interactive_body_text,
+  -- interaction_inbound_reply,
   inserted_at,
 
   -- unified author name (choose stack.name or owner.journey_name)

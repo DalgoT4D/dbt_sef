@@ -14,13 +14,12 @@ select
     contact_chats.inserted_at as chat_inserted_at,
     contact_chats.updated_at as chat_updated_at,
 
-    messages.content,
-    messages.interactive_body_text,
+    messages.message_type,
+    messages.interaction_type,
+    messages.content_coalesced,
     messages.direction,
     messages.journey_name,
     messages.author_type,
-    messages.interaction_type,
-    messages.interaction_inbound_reply,
     messages.journey_start_flag,
     messages.id as message_id,
     messages.inserted_at as message_inserted_at,
@@ -33,4 +32,4 @@ on contact_chats.chat_id = messages.chat_id
 
 
 
--- Check the journey start message content and the cunt of it (How many times this journey was triggered)
+-- Check the journey start message content and the count of it (How many times this journey was triggered)
