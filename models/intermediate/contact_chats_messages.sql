@@ -25,9 +25,21 @@ select
     messages.inserted_at as message_inserted_at,
 
 
-from {{ ref('contact_chats') }} as contact_chats 
+from {{ ref('contact_chats') }} as contact_chats
+
+
 left join {{ ref('messages_flatten') }} as messages 
 on contact_chats.chat_id = messages.chat_id
+
+where urn NOT IN ('+918168594706',
+            '+917983447375',
+            '+918348332976',
+            '+917678621883',
+            '+919606417374',
+            '+918447821214',
+            '+919313285427',
+            '+919560681899',
+            '+918052006633')
 
 
 
