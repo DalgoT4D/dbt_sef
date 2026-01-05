@@ -21,6 +21,7 @@ select
     messages.journey_name,
     messages.author_type,
     messages.journey_start_flag,
+    messages.journey_end_flag,
     messages.id as message_id,
     messages.inserted_at as message_inserted_at,
 

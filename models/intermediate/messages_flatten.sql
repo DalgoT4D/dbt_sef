@@ -21,7 +21,11 @@ WITH base AS (
 
       ELSE NULL
     END AS interaction_inbound_reply,
-    inserted_at
+    inserted_at,
+    ROW_NUMBER() OVER (
+      PARTITION BY id
+      order by inserted_at DESC
+    ) as rn
   FROM {{ source('sef_whatsapp_bot', 'messages') }}
 )
 
@@ -55,8 +59,10 @@ SELECT
       'कृपया बताइए कि आपको किस कक्षा के लिए सहायता चाहिए:',
 
       -- reflection_journey_prod
-      'What would you like to discuss today?',
+      'What would you like to discuss today?', -- old journey
       'आप आज किस बारे में बात करना चाहते हैं?',
+      'Thank you for choosing to reflect today.' -- latest journey
+      'आज चिंतन करने का विकल्प चुनने के लिए धन्यवाद।'
 
       -- general_prod
       'Hello, How can I support your teaching and learning journey?',
@@ -64,6 +70,24 @@ SELECT
     )
     THEN TRUE
     ELSE FALSE
-  END AS journey_start_flag
+  END AS journey_start_flag,
+
+  -- Journey end flag
+  CASE
+    WHEN TRIM(COALESCE(interactive_body_text, '')) IN (
+      -- Teaching Support prod
+      'Was this suggestion useful for your class situation?',
+      'क्या यह सुझाव आपकी कक्षा के लिए उपयोगी रहा?',
+
+      -- reflection journey prod
+      'Hope you have a great rest of the day!🪻', -- old journey
+      'आपका दिन शानदार रहे! 🪻',
+      'आशा है आपका दिन आगे अच्छा गुज़रे! 🪻' --lates (english not changed)
+    )
+    THEN TRUE
+    ELSE FALSE
+  END AS journey_end_flag,
+  rn
 
 FROM base
+where rn = 1
