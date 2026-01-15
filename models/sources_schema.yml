@@ -11,3 +11,5 @@ sources:
         description: This table contains card information of configured journeys on SEF WhatsApp Bot
       - name: chats
         description: This table contains chat info. Each chat record tracks the status, assignment, and metadata of a conversation thread
+      - name: ai_events
+        description: This table contains AI event logs for interactions on SEF WhatsApp Bot
