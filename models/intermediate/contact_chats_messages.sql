@@ -23,6 +23,7 @@ select
     messages.journey_start_flag,
     messages.journey_end_flag,
     messages.id as message_id,
+    messages.session_id,
     messages.inserted_at as message_inserted_at,
 
 
@@ -30,7 +31,7 @@ from {{ ref('contact_chats') }} as contact_chats
 
 
 left join {{ ref('messages_flatten') }} as messages 
-on contact_chats.chat_id = messages.chat_id
+on messages.chat_id = contact_chats.chat_id
 
 where urn NOT IN ('+918168594706',
             '+917983447375',

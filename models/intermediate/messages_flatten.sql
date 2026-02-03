@@ -10,6 +10,7 @@ WITH base AS (
     JSON_EXTRACT_SCALAR(author, '$.id')             AS author_id,
     JSON_EXTRACT_SCALAR(author, '$.name')           AS author_name_stack,
     JSON_EXTRACT_SCALAR(author, '$.type')           AS author_type,
+    JSON_EXTRACT_SCALAR(author, '$.session_id')           AS session_id,
     JSON_EXTRACT_SCALAR(interactive, '$.body.text') AS interactive_body_text,
     JSON_EXTRACT_SCALAR(interactive, '$.type') AS interaction_type,
     CASE
@@ -40,6 +41,7 @@ SELECT
   author_journey_name,
   author_id,
   author_type,
+  session_id,
   -- interactive_body_text,
   -- interaction_inbound_reply,
   inserted_at,
@@ -52,20 +54,18 @@ SELECT
   END AS journey_name,
 
   -- journey_start_flag (trimmed safe exact matches)
+  -- teaching_support_prod
+  -- reflection_journey_prod
+  -- general_prod
   CASE
     WHEN TRIM(COALESCE(interactive_body_text, '')) IN (
-      -- teaching_support_prod
       'Please tell me the grade you want support for:',
-      'कृपया बताइए कि आपको किस कक्षा के लिए सहायता चाहिए:',
-
-      -- reflection_journey_prod
-      'What would you like to discuss today?', -- old journey
+      'कृपया बताएं कि आपको किस कक्षा के लिए सहायता चाहिए:',
+      'What would you like to discuss today?',
       'आप आज किस बारे में बात करना चाहते हैं?',
-      'Thank you for choosing to reflect today.' -- latest journey
-      'आज चिंतन करने का विकल्प चुनने के लिए धन्यवाद।'
-
-      -- general_prod
-      'Hello, How can I support your teaching and learning journey?',
+      'Thank you for choosing to reflect today.',
+      'आज चिंतन करने का विकल्प चुनने के लिए धन्यवाद।',
+      'Hello, how can I support your teaching and learning journey?',
       'नमस्ते! मैं आपकी शिक्षण और अधिगम यात्रा में कैसे मदद कर सकता/सकती हूँ?'
     )
     THEN TRUE

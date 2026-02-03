@@ -7,3 +7,4 @@ profiles.yml
 .user.yml
 *.json
 .vscode/
+dbt_internal_packages/
