@@ -31,8 +31,14 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   sef_transform:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    intermediate:
+      +materialized: ephemeral
 
-    +materialized: table
+      contact_chats_messages:
+        +materialized: table
+
+      ai_events_prompt_responses:
+        +materialized: table
+
+      pct_active_users_weekly:
+        +materialized: table
